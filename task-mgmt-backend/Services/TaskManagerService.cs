@@ -5,7 +5,8 @@ namespace task_mgmt_backend.Services;
 
 public interface ITaskManagerService
 {
-   public TaskItem GetById(int id);
+    public List<TaskItem> GetAllTasks();
+    public TaskItem GetById(int id);
 }
 
 public class TaskManagerService : ITaskManagerService
@@ -17,6 +18,11 @@ public class TaskManagerService : ITaskManagerService
     {
         _taskManager = taskManager;
 
+    }
+
+    public List<TaskItem> GetAllTasks()
+    {
+        return _taskManager.GetAllTasks();
     }
 
     public TaskItem GetById(int id)

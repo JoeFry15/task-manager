@@ -35,19 +35,21 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<TaskContext>();
 
-var itemToRemove = context.TaskItems.FirstOrDefault(item => item.Id == 1);
-
-if (itemToRemove != null)
-{
-    context.TaskItems.Remove(itemToRemove);
-    context.SaveChanges();
-}
+// Initialise TaskItems with sample data
+context.TaskItems.RemoveRange(context.TaskItems);
 
 context.TaskItems.Add(new TaskItem()
     {
     Id = 1, 
     Name ="Walk",
     IsComplete = false,
+    });
+
+context.TaskItems.Add(new TaskItem()
+    {
+    Id = 2, 
+    Name ="Shop",
+    IsComplete = true,
     });
 
 context.SaveChanges();

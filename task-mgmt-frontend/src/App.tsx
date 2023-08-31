@@ -22,7 +22,7 @@ export default App;
 
 export async function fetchData(): Promise<any> {
   try {
-    const response = await fetch("http://localhost:5268/TaskManager/1");
+    const response = await fetch("http://localhost:5268/TaskManager/all");
     const jsonData = await response.json();
     return jsonData;
   } catch (error: any) {

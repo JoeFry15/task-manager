@@ -7,6 +7,7 @@ namespace task_mgmt_backend.Repositories;
 
 public interface ITaskManagerRepo
 {
+    public List<TaskItem> GetAllTasks();
     public TaskItem GetById(int id);
 }
 
@@ -16,6 +17,18 @@ public class TaskManagerRepo : ITaskManagerRepo
     public TaskManagerRepo(TaskContext context)
     {
         _context = context;
+    }
+
+    public List<TaskItem> GetAllTasks()
+    {
+        try
+        {
+            return _context.TaskItems.ToList();
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new ArgumentOutOfRangeException($"No tasks found in the database", ex);
+        }
     }
 
     public TaskItem GetById(int id)

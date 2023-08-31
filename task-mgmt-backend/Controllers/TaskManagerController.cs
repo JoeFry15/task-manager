@@ -17,13 +17,27 @@ public class TaskManagerController : ControllerBase
         _taskManagerService = taskManagerService;
     }
 
+    [HttpGet("all")]
+    public IActionResult GetAllTasks()
+    {
+        try
+        {
+            var tasks = _taskManagerService.GetAllTasks();
+            return Ok(tasks);
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            return NotFound();
+        }
+    }
+
     [HttpGet("{Id:int}")]
     public IActionResult GetById([FromRoute] int Id)
     {
         try
         {
-            var taskManager = _taskManagerService.GetById(Id);
-            return Ok(taskManager);
+            var task = _taskManagerService.GetById(Id);
+            return Ok(task);
         }
         catch (ArgumentOutOfRangeException)
         {
