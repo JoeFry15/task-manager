@@ -34,7 +34,12 @@ export function App() {
       {tasks !== null
         ? tasks
             .filter((i: any) => i.isComplete === false)
-            .map((i: any, j: number) => <p key={j}>{i.name}</p>)
+            .map((i: any, j: number) => (
+              <p key={j}>
+                {i.name}{" "}
+                <button onClick={() => completeTask(i.id)}>Complete</button>
+              </p>
+            ))
         : ""}
       {tasks !== null && showComplete === true
         ? tasks
@@ -78,6 +83,21 @@ export async function createTask(s: string): Promise<any> {
     body: JSON.stringify(s),
   });
 
+  if (!response.ok) {
+    throw new Error(await response.json());
+  } else {
+    return response;
+  }
+}
+
+export async function completeTask(taskId: number): Promise<Response> {
+  const response = await fetch(
+    `http://localhost:5268/TaskManager/complete/${taskId}`,
+    {
+      method: "PATCH",
+      headers: {},
+    }
+  );
   if (!response.ok) {
     throw new Error(await response.json());
   } else {

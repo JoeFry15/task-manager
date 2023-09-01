@@ -9,6 +9,7 @@ public interface ITaskManagerRepo
 {
     public List<TaskItem> GetAllTasks();
     public void CreateTask(string s);
+    public void CompleteTask(int id);
     public TaskItem GetById(int id);
 }
 
@@ -43,6 +44,19 @@ public class TaskManagerRepo : ITaskManagerRepo
         _context.SaveChanges();
     }
 
+    public void CompleteTask(int id)
+    {
+        try
+        {
+            var selectedTask = _context.TaskItems.FirstOrDefault(t => t.Id == id);
+            selectedTask.IsComplete = true;
+            _context.SaveChanges();
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new ArgumentOutOfRangeException($"No task with id {id} found in the database", ex);
+        }
+    }
 
     public TaskItem GetById(int id)
     {

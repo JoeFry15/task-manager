@@ -7,6 +7,7 @@ public interface ITaskManagerService
 {
     public List<TaskItem> GetAllTasks();
     public void CreateTask(string s);
+    public void CompleteTask(int id);
     public TaskItem GetById(int id);
 }
 
@@ -29,6 +30,11 @@ public class TaskManagerService : ITaskManagerService
     public void CreateTask(string s)
     {
         _taskManager.CreateTask(s);
+    }
+
+    public void CompleteTask(int id)
+    {
+        _taskManager.CompleteTask(id);
     }
 
     public TaskItem GetById(int id)

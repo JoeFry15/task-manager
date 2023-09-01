@@ -45,6 +45,13 @@ public class TaskManagerController : ControllerBase
         }
     }
 
+    [HttpPatch("complete/{id}")]
+    public ActionResult CompleteTask([FromRoute] int id)
+    {
+        _taskManagerService.CompleteTask(id);
+        return Ok("Completed");
+    }
+
     [HttpGet("{Id:int}")]
     public IActionResult GetById([FromRoute] int Id)
     {
