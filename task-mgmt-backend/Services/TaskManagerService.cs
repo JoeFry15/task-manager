@@ -6,6 +6,7 @@ namespace task_mgmt_backend.Services;
 public interface ITaskManagerService
 {
     public List<TaskItem> GetAllTasks();
+    public void CreateTask(string s);
     public TaskItem GetById(int id);
 }
 
@@ -23,6 +24,11 @@ public class TaskManagerService : ITaskManagerService
     public List<TaskItem> GetAllTasks()
     {
         return _taskManager.GetAllTasks();
+    }
+
+    public void CreateTask(string s)
+    {
+        _taskManager.CreateTask(s);
     }
 
     public TaskItem GetById(int id)

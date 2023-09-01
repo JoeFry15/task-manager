@@ -8,6 +8,7 @@ namespace task_mgmt_backend.Repositories;
 public interface ITaskManagerRepo
 {
     public List<TaskItem> GetAllTasks();
+    public void CreateTask(string s);
     public TaskItem GetById(int id);
 }
 
@@ -30,6 +31,18 @@ public class TaskManagerRepo : ITaskManagerRepo
             throw new ArgumentOutOfRangeException($"No tasks found in the database", ex);
         }
     }
+
+    async public void CreateTask(string s)
+    {
+        _context.TaskItems.Add(new TaskItem()
+            {
+            Name = s,
+            IsComplete = false,
+            });
+
+        _context.SaveChanges();
+    }
+
 
     public TaskItem GetById(int id)
     {

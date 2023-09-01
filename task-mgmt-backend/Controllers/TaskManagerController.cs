@@ -31,6 +31,20 @@ public class TaskManagerController : ControllerBase
         }
     }
 
+    [HttpPost("create")]
+    public IActionResult CreateTask([FromBody] string task)
+    {
+        try
+        {
+            _taskManagerService.CreateTask(task);
+            return Ok($"Your task has been created!");
+        }
+        catch (System.Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
     [HttpGet("{Id:int}")]
     public IActionResult GetById([FromRoute] int Id)
     {
